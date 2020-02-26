@@ -1,1 +1,3 @@
 *.pyc
+cars/*.pyc
+mycar/*.pyc
