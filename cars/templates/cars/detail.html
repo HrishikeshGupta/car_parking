@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <h1>details:</h1>
+        slot: {{ detail.slot }}<br>
+        colour: {{ detail.colour }}<br>
+        reg_number: {{ detail.reg_number }}
+        <form method="post" action="/cars/exit_car">
+            {% csrf_token %}
+            <input type="hidden" name="slot" value="{{ Parking.slot }}">
+            <input type="submit" value="Exit">
+        </form>
+        <a target="_self" href="/cars">HOME</a>
+    </body>
+</html>

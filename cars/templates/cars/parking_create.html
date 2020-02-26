@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <center>
+            <h1><font color="red">PARKING LOT</font></h1>
+            <h1></h1>
+            <hr>
+        </center>
+        <a target="_self" href="/cars"><font color="red">HOME</font></a><br><br>
+        <h2>Create New Car</h2>
+        <form method="POST" action="create">
+            {% csrf_token %}
+            <!-- {{ form.as_p}} -->
+            <p><label for="id_reg_number">Reg number:</label> <input type="text" name="reg_number" maxlength="200" required="" id="id_reg_number"></p>
+            <p><label for="id_colour">Colour:</label> <input type="text" name="colour" maxlength="200" required="" id="id_colour"></p>
+            <input type="submit" vlaue="Save">
+        </form>
+        {% if error1 %}
+        <script>
+            window.alert('Invalid Registration Number(Allowed type colour: KA-23-JG-1345)');
+        </script>
+        {% elif error2 %}
+        <script>
+            window.alert('Invalid colour(Allowed colour: BLACK,WHITE,BLUE,RED)');
+        </script>
+        {% elif error3 %}
+        <script>
+            window.alert('OPPS!! All slots full');
+        </script>
+        {% elif error4 %}
+        <script>
+            window.alert('Invalid Registration Number. Alderady IN');
+        </script>
+        {% else %}
+        {% endif %}
+    </body>
+</html>

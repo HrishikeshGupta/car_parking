@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <center>
+            <h1><font color="red">PARKING LOT</font></h1>
+            <h1></h1>
+        </center>
+        <hr>
+        <a target="_self" href="/cars"><font color="red">HOME</font></a><br><br>
+        <h2> Parked Car by Registration Number</h2>
+        {% if latest_cars_list %}
+        REGISTRATION NUMBER | SLOT NUMBER | COLOUR 
+        <ul>
+            {% for each_cars in latest_cars_list %}
+            <li>
+                {{ each_cars.reg_number}} |  {{each_cars.slot}} | {{each_cars.colour}}
+                <form action="/cars/exit_car" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ each_cars.slot}}" name="slot">
+                    <input type="hidden" value="{{ each_cars.reg_number}}" name="reg_number">
+                    <!--         <input type="submit" value="exit" name="make-unique"> -->
+                </form>
+            </li>
+        </ul>
+        {% endfor %}
+        {% else %}
+        No data found
+        {% endif %}
+    </body>
+</html>

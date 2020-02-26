@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <center>
+            <h1><font color="red">PARKING LOT</font></h1>
+            <h1></h1>
+            <hr>
+        </center>
+        <a target="_self" href="/cars"><font color="red">HOME</font></a><br><br>
+        {% if latest_cars_list %}
+        <h2> Parked car details</h2>
+        REGISTRATION NUMBER | SLOT NUMBER | COLOUR
+        <ul>
+            {% for each_cars in latest_cars_list %}
+            <li>
+                {{ each_cars.reg_number}} |  {{each_cars.slot}} | {{each_cars.colour}}
+                <form action="/cars/exit_car" method="post">{% csrf_token %}
+                    <input type="hidden" value="{{ each_cars.slot}}" name="slot">
+                    <input type="hidden" value="{{ each_cars.reg_number}}" name="reg_number">
+                    <input type="submit" value="exit" name="make-unique">
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        <hr>
+        <h2>Functionalities</h2>
+        <ul>
+            <a target="_blank" href="/cars/create">ADD NEW CAR</a>
+            <br>
+            <a target="_blank" href="/cars/search_by_colour">SEARCH BY COLOUR</a>
+            <br>
+            <a target="_blank" href="/cars/search_by_reg_number">SEARCH BY REGISTRATION NUMBER</a> 
+        </ul>
+        {% else %}
+        <center><p>No cars are available.</p></center>
+        <hr>
+        <h2> Enter Slot size and cars present</h2>
+        <form action="/cars/auto_generate" method="post">{% csrf_token %}
+            <label for="slot_size">slot size: </label>
+            <input id="slot_size" type="text" name="slot_size" value="{{ current_name }}"><br>
+            <label for="cars_already_present">cars already present: </label>
+            <input id="cars_already_present" type="text" name="cars_already_present" value="{{ current_name }}"><br>
+            <input type="submit" value="Submit">
+        </form>
+        {% endif %}
+    </body>
+</html>
