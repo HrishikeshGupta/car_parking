@@ -14,4 +14,7 @@ urlpatterns = [
     path('search_by_reg_number', views.search_by_reg_number),
     path('auto_generate', views.auto_generate),
     path('view_result', views.view_result),
+    path('get_total_count_of_cars',views.get_total_count_of_cars),
+    path('get_total_income',views.get_total_income),
+    path('get_slot_details',views.get_slot_details),
     ]

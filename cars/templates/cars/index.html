@@ -10,11 +10,11 @@
         <a target="_self" href="/cars"><font color="red">HOME</font></a><br><br>
         {% if latest_cars_list %}
         <h2> Parked car details</h2>
-        REGISTRATION NUMBER | SLOT NUMBER | COLOUR
+        REGISTRATION NUMBER | SLOT NUMBER | COLOUR | ENTRY TIME
         <ul>
             {% for each_cars in latest_cars_list %}
             <li>
-                {{ each_cars.reg_number}} |  {{each_cars.slot}} | {{each_cars.colour}}
+                {{ each_cars.reg_number}} |  {{each_cars.slot}} | {{each_cars.colour}} | {{each_cars.reg_date}}
                 <form action="/cars/exit_car" method="post">{% csrf_token %}
                     <input type="hidden" value="{{ each_cars.slot}}" name="slot">
                     <input type="hidden" value="{{ each_cars.reg_number}}" name="reg_number">
@@ -31,6 +31,13 @@
             <a target="_blank" href="/cars/search_by_colour">SEARCH BY COLOUR</a>
             <br>
             <a target="_blank" href="/cars/search_by_reg_number">SEARCH BY REGISTRATION NUMBER</a> 
+            <br>
+            <a target="_blank" href="/cars/get_total_count_of_cars">GET TOTAL COUNT OF CARS</a>
+            <br>
+            <a target="_blank" href="/cars/get_total_income">GET TOTAL INCOME TILL NOW</a>
+            <br>
+            <a target="_blank" href="/cars/get_slot_details">GET SLOT DETAILS</a>
+            
         </ul>
         {% else %}
         <center><p>No cars are available.</p></center>

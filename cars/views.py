@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta,timezone
 from operator import itemgetter 
 import random
 import re
@@ -11,6 +11,8 @@ from django.template import loader
 
 from .forms import ParkingsForm
 from .models import Parking
+import math
+
 
 
 # CONSTANTS
@@ -22,8 +24,9 @@ VALID_COLOURS = ['BLACK', 'BLUE', 'WHITE', 'RED']
 
 
 def index(request):
+    now = datetime.now(timezone.utc)
     latest_cars_list = Parking.objects.filter(in_use=1).order_by('slot')
-    context = {'latest_cars_list': latest_cars_list}
+    context = {'latest_cars_list': latest_cars_list,'today':now}
     return render(request, 'cars/index.html', context)
 
 
@@ -162,8 +165,12 @@ def list_to_str(data_list):
 def exit_car(request):
     slot = request.POST.get("slot", "")
     reg_number = request.POST.get("reg_number", "")
+    park_oj = Parking.objects.filter(reg_number=reg_number, slot=slot).first()
+    now = datetime.now(timezone.utc)
+    time_difference = (now -park_oj.reg_date)
+    minutes = time_difference.seconds / 60
     park_oj = Parking.objects.filter(reg_number=reg_number, slot=slot).update(in_use=0)
-    context = {'reg_number':reg_number, 'slot':slot}
+    context = {'reg_number':reg_number, 'slot':slot, 'duration': minutes}
     return render(request, 'cars/car_exit.html', context)
 
     
@@ -182,3 +189,57 @@ def view_result_reg_source(request):
     latest_cars_list = Parking.objects.filter(in_use=1, reg_number=reg_number).order_by('slot')
     context = {'latest_cars_list': latest_cars_list}
     return render(request, 'cars/search_reg_source_result.html', context)
+
+def get_total_count_of_cars(request):
+    total_cars = Parking.objects.all()
+    now = datetime.now(timezone.utc)
+    print('present time:' +str(now))
+    for each in total_cars:
+        print('entered time:'+str(each.reg_date))
+        time_difference = (now -each.reg_date)
+        minutes = time_difference.seconds / 60
+        print('Duration: ', minutes) 
+        print('-------------')
+        
+    context = {'total_count_of_cars': total_cars.count()}
+    return render(request, 'cars/total_count_of_cars.html', context)
+
+def get_total_income(request):
+    amount = 0
+    parking_obj = Parking.objects.all()
+    for each in parking_obj:
+        tepm_amount = 0
+        tepm_amount = get_amount_for_car(each.reg_date)
+        amount = amount + tepm_amount
+    context = {'earned_till_now': amount}
+    return render(request, 'cars/total_income.html', context)
+    
+def get_amount_for_car(reg_date):
+    amount = 0
+    now = datetime.now(timezone.utc)
+    time_difference = (now -reg_date)
+    minutes = time_difference.seconds / 60
+    if minutes < 60:
+        amount = 20
+    else:
+        temp = math.ceil(minutes /60)
+        amount1 = 20
+        amount2 = (temp-1) *10
+        amount = amount1 +  amount2
+    if amount > 200:
+        amount =  200
+    return(amount)
+
+def get_slot_details(request):
+    parking_obj = Parking.objects.filter(in_use = 1)
+    used_slot = parking_obj.count()
+    f = open("slot.txt", "r")
+    solt_size = f.read()
+    free = int(solt_size) - used_slot
+    context = {'free_slot': free,'occupied_slot':used_slot, 'total_slots': int(solt_size) }
+    return render(request, 'cars/slot_details.html', context)
+        
+        
+    
+    
+    
