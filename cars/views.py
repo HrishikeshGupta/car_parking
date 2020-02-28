@@ -209,7 +209,7 @@ def get_total_income(request):
     parking_obj = Parking.objects.all()
     for each in parking_obj:
         tepm_amount = 0
-        tepm_amount = get_amount_for_car(each.reg_date)
+        tepm_amount,minutes = get_amount_for_car(each.reg_date)
         amount = amount + tepm_amount
     context = {'earned_till_now': amount}
     return render(request, 'cars/total_income.html', context)
@@ -228,7 +228,7 @@ def get_amount_for_car(reg_date):
         amount = amount1 +  amount2
     if amount > 200:
         amount =  200
-    return(amount)
+    return(amount,minutes)
 
 def get_slot_details(request):
     parking_obj = Parking.objects.filter(in_use = 1)
@@ -239,7 +239,26 @@ def get_slot_details(request):
     context = {'free_slot': free,'occupied_slot':used_slot, 'total_slots': int(solt_size) }
     return render(request, 'cars/slot_details.html', context)
         
-        
+def test(request):
+#     now = datetime.now(timezone.utc)
+#     latest_cars_list = Parking.objects.filter(in_use=1).order_by('slot')
+#     context = {'latest_cars_list': latest_cars_list,'today':now}
+#     return render(request, 'cars/test.html', context)
+    list_of_dict = []
+    amount = 0
+    parking_obj = Parking.objects.all()
+    for each in parking_obj:
+        dict_data = {}
+        tepm_amount = 0
+        tepm_amount,minutes = get_amount_for_car(each.reg_date)
+        amount = amount + tepm_amount
+        dict ={'reg_number':each.reg_number,'minutes':minutes,'amount':tepm_amount}
+        list_of_dict.append(dict)
+         
+    context = {'data': list_of_dict}
+    print(context)
+    return render(request, 'cars/test2.html', context)
+    
     
     
     

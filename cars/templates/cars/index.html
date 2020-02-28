@@ -1,33 +1,121 @@
 <!DOCTYPE html>
 <html>
-    <head></head>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <style>
+            body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            }
+            .topnav {
+            overflow: hidden;
+            background-color: #333;
+            }
+            .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            }
+            .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+            }
+            .topnav a.active {
+            background-color: #4CAF50;
+            color: white;
+            }  
+        
+        
+            table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            }
+            td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            }
+            tr:nth-child(even) {
+            background-color: #dddddd;
+            }
+        </style>
+    </head>
     <body>
-        <center>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <div class="topnav">
+            <a class="active" href="/cars">Home</a> 
+        </div>
             <h1><font color="red">PARKING LOT</font></h1>
             <h1></h1>
             <hr>
-        </center>
-        <a target="_self" href="/cars"><font color="red">HOME</font></a><br><br>
+<!--         <a target="_self" href="/cars"><font color="red">HOME</font></a><br><br> -->
         {% if latest_cars_list %}
-        <h2> Parked car details</h2>
-        REGISTRATION NUMBER | SLOT NUMBER | COLOUR | ENTRY TIME
-        <ul>
+        <center>
+            <h2>PARKED CARS</h2>
+        </center>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>REGISTRATION NUMBER</th>
+                    <th>SLOT NUMBER</th>
+                    <th>COLOUR</th>
+                    <th>ENTRY TIME</th>
+                    <th>EXIT</th>
+                </tr>
+            </thead>
             {% for each_cars in latest_cars_list %}
-            <li>
-                {{ each_cars.reg_number}} |  {{each_cars.slot}} | {{each_cars.colour}} | {{each_cars.reg_date}}
-                <form action="/cars/exit_car" method="post">{% csrf_token %}
-                    <input type="hidden" value="{{ each_cars.slot}}" name="slot">
-                    <input type="hidden" value="{{ each_cars.reg_number}}" name="reg_number">
-                    <input type="submit" value="exit" name="make-unique">
-                </form>
-            </li>
+            <tbody>
+                <tr>
+                    <td>{{ each_cars.reg_number}}</td>
+                    <td>{{each_cars.slot}}</td>
+                    <td>{{each_cars.colour}}</td>
+                    <td>{{each_cars.reg_date}}</td>
+                    <td>
+                        <form action="/cars/exit_car" method="post">{% csrf_token %}
+                            <input type="hidden" value="{{ each_cars.slot}}" name="slot">
+                            <input type="hidden" value="{{ each_cars.reg_number}}" name="reg_number">
+                            <input type="submit" value="exit" name="make-unique">
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
             {% endfor %}
-        </ul>
+        </table>
         <hr>
-        <h2>Functionalities</h2>
+        <h2>EXPLORE MORE</h2>
+      
+        <div class="row">
+        <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Search by
+        </button>
+         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="/cars/search_by_colour">search by colour</a>
+        <a class="dropdown-item" href="/cars/search_by_reg_number">search by reg number</a>
+        </div>
+        </div>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Get data
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="/cars/get_total_count_of_cars">GET TOTAL COUNT OF CARS</a>
+            <a class="dropdown-item" href="/cars/get_total_income">GET TOTAL INCOME TILL NOW</a>
+            <a class="dropdown-item" href="/cars/get_slot_details">GET SLOT DETAILS</a>
+          </div>
+        </div>
+        <a class="btn btn-primary" href="/cars/create" role="button">ADD NEW CAR</a>
+        </div>
         <ul>
-            <a target="_blank" href="/cars/create">ADD NEW CAR</a>
-            <br>
+            <!-- <a target="_blank" href="/cars/create">ADD NEW CAR</a> -->
+            <!-- <br>
             <a target="_blank" href="/cars/search_by_colour">SEARCH BY COLOUR</a>
             <br>
             <a target="_blank" href="/cars/search_by_reg_number">SEARCH BY REGISTRATION NUMBER</a> 
@@ -37,7 +125,8 @@
             <a target="_blank" href="/cars/get_total_income">GET TOTAL INCOME TILL NOW</a>
             <br>
             <a target="_blank" href="/cars/get_slot_details">GET SLOT DETAILS</a>
-            
+            <br> -->
+<!--             <a target="_blank" href="/cars/test">test</a> -->
         </ul>
         {% else %}
         <center><p>No cars are available.</p></center>
