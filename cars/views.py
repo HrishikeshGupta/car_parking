@@ -123,6 +123,10 @@ def auto_generate(request):
 
     
 def genetare_random_cars(slot_size, cars_already_present):
+    parking_obj = Parking.objects.all()
+    if parking_obj:
+        for each in parking_obj:
+            each.delete()
     if int(cars_already_present) <= int(slot_size):
         for i in range(1, int(cars_already_present) + 1):
             reg_number, colour = validate_and_generate_reg_no_and_colour()
