@@ -46,8 +46,6 @@ def parking_create_view(request):
             Parking_obj = Parking.objects.filter(reg_number = reg_number, in_use = 1)
             if Parking_obj:
                 return render(request, 'cars/parking_create.html', {'error4': 'Invalid Registration Number(Allowed type colour: KA-23-JG-1345)'})
-
-
         else:
             return render(request, 'cars/parking_create.html', {'error1': 'Invalid Registration Number(Allowed type colour: KA-23-JG-1345)'})
         colour = form['colour'].value()
@@ -62,11 +60,15 @@ def parking_create_view(request):
                 id = each.id
                 slot = each.slot
                 slot_list.append({'id':id, 'slot':slot})
-                print(slot_list)
-                
+   
             sorted_slot_list = sorted(slot_list, key=itemgetter('slot'))
-            Parking.objects.filter(id=int(sorted_slot_list[0]['id'])).update(slot_used=1)
-            p = Parking(reg_number=reg_number, colour=colour, slot=int(sorted_slot_list[0]['slot']), in_use=1, reg_date=datetime.now())
+            slot=int(sorted_slot_list[0]['slot'])
+            #print(slot)
+           # print('=====================')
+            parking_slot_used = Parking.objects.filter(slot = slot)
+            for each in parking_slot_used:
+                Parking.objects.filter(id=each.id).update(slot_used=1)
+            p = Parking(reg_number=reg_number, colour=colour, slot=slot, in_use=1, reg_date=datetime.now())
             p.save()
         else:
             f = open("slot.txt", "r")
@@ -75,6 +77,9 @@ def parking_create_view(request):
             for each in Parking_obj:
                 slot_list.append(each.slot)
             latest_slot = max(slot_list)
+            #print('new added')
+            #print(slot_list)
+            #print('-----------------------')
             if latest_slot + 1 <= int(solt_size):
                 p = Parking(reg_number=reg_number, colour=colour, slot=int(latest_slot + 1), in_use=1, reg_date=datetime.now())
                 p.save()
