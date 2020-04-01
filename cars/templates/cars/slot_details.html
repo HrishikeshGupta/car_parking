@@ -31,29 +31,6 @@
         color: white;
         }   
         </style>
-    <script>
-        window.onload = function() {
-        
-        var chart = new CanvasJS.Chart("chartContainer", {
-            animationEnabled: true,
-            title: {
-                text: "Total slot: {{ total_slots    }}"
-            },
-            data: [{
-                type: "pie",
-                startAngle: 90,
-                yValueFormatString: "##0\"\"",
-                indexLabel: "{label} {y}",
-                dataPoints: [
-                    {y: {{ free_slot }}, label: "FREE"},
-                    {y: {{ occupied_slot }}, label: "OCCUPIED"}   
-                ]
-            }]
-        });
-        chart.render();
-        
-        }
-        </script>
     </head>
     <body>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -63,9 +40,16 @@
             <h1><font color="red">PARKING LOT</font></h1>
             <h1></h1>
             <hr>       
-        <center><h2>SLOT DETAILS</h2></center>
-        <div id="chartContainer" style="height: 50%; width: 100%;"></div>
-        <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-        
+    <body>
+            <!-- <center>
+                <h1><font color="red">PARKING LOT</font></h1>
+                <h1></h1>
+                <hr>
+            </center>
+            <a target="_self" href="/cars"><font color="red">HOME</font></a><br><br> -->
+        <h2>SLOT DETAILS</h2>
+        TOTAL SLOTS: {{ total_slots }}<br>
+        FREE : {{ free_slot }}<br>
+        OCCUPIED : {{ occupied_slot }}
     </body>
 </html>

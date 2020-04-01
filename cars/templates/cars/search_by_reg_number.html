@@ -1,5 +1,3 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -32,17 +30,6 @@
         background-color: #4CAF50;
         color: white;
         }
-        .container {
-              position: relative;
-              text-align: center;
-              color: black;
-        }
-        .centered {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        
         
            
         </style>
@@ -51,7 +38,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <div class="topnav">
             <a class="active" href="/cars">Home</a> 
-        </div>     
+        </div>
+            <h1><font color="red">PARKING LOT</font></h1>
+            <h1></h1>
+            <hr>       
     <!-- <body>
         <center>
             <h1><font color="red">PARKING LOT</font></h1>
@@ -59,22 +49,13 @@
         </center>
         <hr>
        <a target="_self" href="/cars"><font color="red">HOME</font></a><br><br> -->
-        <div class="container">
-            <center><img src="{% static 'cars/images/a1.jpeg' %}" style="width:60%;height:50%;"></center>
-            <div class="centered"><marquee bgcolor="white" width = 100%><h1>PARKING LOT</h1></marquee>
-        </div>
-        </div>
-        
-        <center>
-        <h2> SEARCH BY REGISTRATION NUMBER</h2><br>
+        <h2> Search by Registration Number</h2>
         <form action="/cars/view_result_reg_source">
             <div>
-                <label for="slot_size">ENTER REGISTRATION NUMBER</label><br>
-                <input type="search" colour="mySearch" name="reg_number" required placeholder = 'eg: AA-11-AA-1111'><br>
+                <input type="search" colour="mySearch" name="reg_number">
                 <!--     <input type="hidden" value="{{ colour }}" name="colour"> -->
                 <button>Search</button>
             </div>
         </form>
-        </center>
     </body>
 </html>

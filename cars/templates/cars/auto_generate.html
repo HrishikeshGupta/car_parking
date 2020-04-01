@@ -59,16 +59,9 @@
         </center>
         <a target="_self" href="/cars"><font color="red">HOME</font></a><br><br> -->
         {% if cars_genereated %}
-         <script>
-            alert('cars genereated : {{ cars_genereated }}');
-            window.location = '{{ base_url }}'
-        </script>
+        cars generated: {{ cars_genereated }}
         {% else %}
-        <script>
-            alert('{{ invalid }}');
-            window.location = '{{ base_url }}'
-        </script>
-<!--         error: {{ invalid }}     -->
+        error: {{ invalid }}    
         {% endif %}
     </body>
 </html>

@@ -21,9 +21,7 @@ VALID_APLPHABETS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I',
                  'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 VALID_NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 VALID_COLOURS = ['BLACK', 'BLUE', 'WHITE', 'RED']
-#BASE_URL = "http://127.0.0.1:8000/cars/"
-BASE_URL = " http://34.66.84.9/cars/"
-MAX_SLOT_SIZE_TESTING = 15
+
 
 def index(request):
     now = datetime.now(timezone.utc)
@@ -112,17 +110,15 @@ def view_result(request):
 def auto_generate(request):
     slot_size = request.POST.get("slot_size", "")
     cars_already_present = request.POST.get("cars_already_present", "")
+    
+    f = open("slot.txt", "w+")
+    f.write(slot_size)
     bool_validate = genetare_random_cars(slot_size, cars_already_present)
     if bool_validate == 1:
-        f = open("slot.txt", "w+")
-        f.write(slot_size)
-        context = {'cars_genereated': cars_already_present,'base_url':BASE_URL}
-        return render(request, 'cars/auto_generate.html', context)
-    elif bool_validate == -1:
-        context = {'invalid':'Restricted Slot size to {} for Testing'.format(MAX_SLOT_SIZE_TESTING),'base_url':BASE_URL}
+        context = {'cars_genereated': cars_already_present}
         return render(request, 'cars/auto_generate.html', context)
     else:
-        context = {'invalid':'Invalid data','base_url':BASE_URL}
+        context = {'invalid':'Invalid data'}
         return render(request, 'cars/auto_generate.html', context)
 
     
@@ -131,15 +127,6 @@ def genetare_random_cars(slot_size, cars_already_present):
     if parking_obj:
         for each in parking_obj:
             each.delete()
-    try:
-        cars_present = int(cars_already_present)
-        slot_size = int(slot_size)
-    except Exception as e:
-        return(0)
-    
-    if slot_size > MAX_SLOT_SIZE_TESTING:
-        return(-1)
-    
     if int(cars_already_present) <= int(slot_size):
         for i in range(1, int(cars_already_present) + 1):
             reg_number, colour = validate_and_generate_reg_no_and_colour()
@@ -192,7 +179,7 @@ def exit_car(request):
     time_difference = (now -park_oj.reg_date)
     minutes = time_difference.seconds / 60
     park_oj = Parking.objects.filter(reg_number=reg_number, slot=slot).update(in_use=0)
-    context = {'reg_number':reg_number, 'slot':slot, 'duration': round(minutes,2)}
+    context = {'reg_number':reg_number, 'slot':slot, 'duration': minutes}
     return render(request, 'cars/car_exit.html', context)
 
     
@@ -214,44 +201,26 @@ def view_result_reg_source(request):
 
 def get_total_count_of_cars(request):
     total_cars = Parking.objects.all()
-#     now = datetime.now(timezone.utc)
-#     print('present time:' +str(now))
-#     for each in total_cars:
-#         print('entered time:'+str(each.reg_date))
-#         time_difference = (now -each.reg_date)
-#         minutes = time_difference.seconds / 60
-#         print('Duration: ', minutes) 
-#         print('-------------')
-    black_cars = total_cars.filter(colour = 'BLACK')
-    black_cars_count = black_cars.count()
-    
-    blue_cars = total_cars.filter(colour = 'BLUE')
-    blue_cars_count = blue_cars.count()
-    
-    red_cars = total_cars.filter(colour = 'RED')
-    red_cars_count = red_cars.count()
-    
-    white_cars = total_cars.filter(colour = 'WHITE')
-    white_cars_count = white_cars.count()
+    now = datetime.now(timezone.utc)
+    print('present time:' +str(now))
+    for each in total_cars:
+        print('entered time:'+str(each.reg_date))
+        time_difference = (now -each.reg_date)
+        minutes = time_difference.seconds / 60
+        print('Duration: ', minutes) 
+        print('-------------')
         
-    context = {'total_count_of_cars': total_cars.count(),'black_cars_count':black_cars_count,'blue_cars_count':blue_cars_count,'red_cars_count':red_cars_count,'white_cars_count':white_cars_count}
+    context = {'total_count_of_cars': total_cars.count()}
     return render(request, 'cars/total_count_of_cars.html', context)
 
 def get_total_income(request):
-    list_of_dict = []
     amount = 0
-    total_minutes = 0
     parking_obj = Parking.objects.all()
     for each in parking_obj:
-        dict_data = {}
         tepm_amount = 0
         tepm_amount,minutes = get_amount_for_car(each.reg_date)
         amount = amount + tepm_amount
-        total_minutes = total_minutes + minutes
-        dict ={'reg_number':each.reg_number,'minutes':minutes,'amount':tepm_amount}
-        list_of_dict.append(dict)
-    context = {'data': list_of_dict,'total_amount': round(amount,2),'total_minutes': total_minutes}
-    print(context)
+    context = {'earned_till_now': amount}
     return render(request, 'cars/total_income.html', context)
     
 def get_amount_for_car(reg_date):
@@ -268,7 +237,7 @@ def get_amount_for_car(reg_date):
         amount = amount1 +  amount2
     if amount > 200:
         amount =  200
-    return(amount,round(minutes,2))
+    return(amount,minutes)
 
 def get_slot_details(request):
     parking_obj = Parking.objects.filter(in_use = 1)
@@ -299,16 +268,6 @@ def test(request):
     print(context)
     return render(request, 'cars/test2.html', context)
     
-def about(request):
-    context = {}
-    return render(request, 'cars/about.html', context)
-
-def contactus(request):
-    context = {}
-    return render(request, 'cars/contactus.html', context)
-
-def test_001(request):
-    context = {'base_url':BASE_URL}
-    return render(request, 'cars/test_001.html', context)
+    
     
     
