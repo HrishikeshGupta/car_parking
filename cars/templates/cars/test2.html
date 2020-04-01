@@ -1,0 +1,22 @@
+{% if data %}
+    <table class="table table-hover ">
+            <thead>
+                <tr>
+                    <th>REGISTRATION NUMBER</th>
+                    <th>MINUTES</th>
+                    <th>AMOUNT</th>
+                </tr>
+            </thead>
+            {% for each_cars in data %}
+                <tbody>
+                    <tr>
+                        <td>{{ each_cars.reg_number}}</td>
+                        <td>{{each_cars.minutes}}</td>
+                        <td>{{each_cars.amount}}</td>
+                </tbody>
+            {% endfor %}
+        </table>
+    
+{% endif %}
+
+

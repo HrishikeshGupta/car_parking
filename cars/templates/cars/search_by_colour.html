@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +32,18 @@
         background-color: #4CAF50;
         color: white;
         }   
+        
+        .container {
+              position: relative;
+              text-align: center;
+              color: black;
+        }
+        .centered {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);        
+
         </style>
     </head>
     <body>
@@ -37,9 +51,6 @@
         <div class="topnav">
             <a class="active" href="/cars">Home</a> 
         </div>
-            <h1><font color="red">PARKING LOT</font></h1>
-            <h1></h1>
-            <hr>       
     <body>
             <!-- <center>
                 <h1><font color="red">PARKING LOT</font></h1>
@@ -47,12 +58,20 @@
                 <hr>
             </center>
             <a target="_self" href="/cars"><font color="red">HOME</font></a><br><br> -->
-        <h2> Search by Colour</h2>
+        <div class="container">
+            <center><img src="{% static 'cars/images/a1.jpeg' %}" style="width:60%;height:50%;"></center>
+            <div class="centered"><marquee bgcolor="white" width = 100%><h1>PARKING LOT</h1></marquee>
+        </div>
+        </div>
+        <center> 
+        <h2> SEARCH BY COLOR</h2>
         <form action="/cars/view_result">
             <div>
-                <input type="search" colour="mySearch" name="colour">
-                <button>Search</button>
+                 <label for="slot_size">ENTER COLOR </label><br>
+                <input type="search" colour="mySearch" name="colour" required placeholder = 'RED,BLUE,BLACK,WHITE'><br>
+                <button>Search</button><br>
             </div>
         </form>
+        </center>
     </body>
 </html>

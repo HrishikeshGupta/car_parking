@@ -1,3 +1,6 @@
+{% load static %}
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -43,7 +46,17 @@
             .topnav a.active {
             background-color: #4CAF50;
             color: white;
-            }   
+            }  
+            .container {
+              position: relative;
+              text-align: center;
+              color: black;
+            }
+            .centered {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%); 
                     
         </style>
     </head>
@@ -51,10 +64,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <div class="topnav">
             <a class="active" href="/cars">Home</a> 
-        </div>
-            <h1><font color="red">PARKING LOT</font></h1>
-            <h1></h1>
-            <hr>       
+        </div>    
     <body>
         <!-- <center>
             <h1><font color="red">PARKING LOT</font></h1>
@@ -62,7 +72,13 @@
         </center>
         <hr>
         <a target="_self" href="/cars"><font color="red">HOME</font></a><br><br> -->
-        <h2> Parked Car by Registration Number</h2>
+        <div class="container">
+            <center><img src="{% static 'cars/images/a1.jpeg' %}" style="width:60%;height:50%;"></center>
+            <div class="centered"><marquee bgcolor="white" width = 100%><h1>PARKING LOT</h1></marquee>
+        </div>
+        </div>
+        <center>
+        <h2> PARKED CAR BY REGISTRATION NUMBER</h2>
         {% if latest_cars_list %}
             <table class="table">
                 <thead>
@@ -83,7 +99,7 @@
                 </tbody>
                 {% endfor %}
         {% else %}
-        <h4><center>OPPS!!No data found</center ></h4>
+        <h4><center>OPPS!! No data found!! Invalid Data</center ></h4>
         {% endif %}
     </body>
 </html>

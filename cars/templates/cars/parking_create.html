@@ -1,3 +1,6 @@
+{% load static %}
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,17 +32,24 @@
         .topnav a.active {
         background-color: #4CAF50;
         color: white;
-        }   
+        }  
+        .container {
+          position: relative;
+          text-align: center;
+          color: black;
+        }
+        .centered {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%); 
         </style>
     </head>
     <body>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <div class="topnav">
             <a class="active" href="/cars">Home</a> 
-        </div>
-            <h1><font color="red">PARKING LOT</font></h1>
-            <h1></h1>
-            <hr>       
+        </div>    
     <body>
             <!-- <center>
                 <h1><font color="red">PARKING LOT</font></h1>
@@ -47,14 +57,26 @@
                 <hr>
             </center>
             <a target="_self" href="/cars"><font color="red">HOME</font></a><br><br> -->
+        <div class="container">
+            <center><img src="{% static 'cars/images/a1.jpeg' %}" style="width:60%;height:50%;"></center>
+            <div class="centered"><marquee bgcolor="white" width = 100%><h1>PARKING LOT</h1></marquee>
+        </div>
+        </div>
+        <center>
         <h2>Create New Car</h2>
-        <form method="POST" action="create">
+        <form method="POST" action="create" onsubmit="myFunction()">
             {% csrf_token %}
             <!-- {{ form.as_p}} -->
-            <p><label for="id_reg_number">Reg number:</label> <input type="text" name="reg_number" maxlength="200" required="" id="id_reg_number"></p>
-            <p><label for="id_colour">Colour:</label> <input type="text" name="colour" maxlength="200" required="" id="id_colour"></p>
-            <input type="submit" vlaue="Save">
+            <p><label for="id_reg_number">Reg number:</label><br> <input type="text" name="reg_number" maxlength="200" required="" id="id_reg_number" placeholder = "eg: AA-11-AA-1111"></p>
+            <p><label for="id_colour">Colour:</label><br> <input type="text" name="colour" maxlength="200" required="" id="id_colour" placeholder = "RED,BLACK,BLUE,WHITE"></p>
+            <input type="submit" vlaue="Save" color='green'>
         </form>
+        </center>
+        <script>
+            function myFunction() {
+            alert("The form was submitted");
+            }
+        </script>
         {% if error1 %}
         <script>
             window.alert('Invalid Registration Number(Allowed type colour: KA-23-JG-1345)');
