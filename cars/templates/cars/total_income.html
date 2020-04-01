@@ -49,6 +49,37 @@
             <hr>
         </center>
         <a target="_self" href="/cars"><font color="red">HOME</font></a><br><br> -->
-        <h3>TOATL INCOME TILL NOW</h3> <font color="brown"><h4> {{ earned_till_now }}</h4></font>
+        <center><h3>TOATL INCOME TILL NOW</h3></center>
+        {% if data %}
+            <table class="table table-hover table-dark ">
+                <thead>
+                    <tr>
+                        <th>REGISTRATION NUMBER</th>
+                        <th>MINUTES</th>
+                        <th>AMOUNT</th>
+                    </tr>
+                </thead>
+                {% for each_cars in data %}
+                    <tbody>
+                        <tr>
+                            <td>{{ each_cars.reg_number}}</td>
+                            <td>{{each_cars.minutes}}</td>
+                            <td>{{each_cars.amount}}</td>
+                        </tr>
+                    </tbody>    
+                {% endfor %}
+                
+                <thead>
+                    <tr>
+                        <th>TOTAL</th>
+                        <th>{{ total_minutes }}</th>
+                        <th>{{ total_amount }}</th>
+                    </tr>
+                </thead>
+            </table>
+            
+        {% endif %}
+ 
+    
     </body>
 </html>
