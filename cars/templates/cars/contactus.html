@@ -1,22 +1,52 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
-        <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
-         <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
-        media="screen" />
-    <style>
-        body {
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        }
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<style>
+    .card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+      margin: auto;
+      text-align: center;
+      font-family: arial;
+    }
+    
+    .title {
+      color: grey;
+      font-size: 18px;
+    }
+    
+    button {
+      border: none;
+      outline: 0;
+      display: inline-block;
+      padding: 8px;
+      color: white;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+    }
+    
+    a {
+      text-decoration: none;
+      font-size: 22px;
+      color: black;
+    }
+    
+    button:hover, a:hover {
+      opacity: 0.7;
+    }
+
         .topnav {
         overflow: hidden;
         background-color: #333;
@@ -37,43 +67,44 @@
         background-color: #4CAF50;
         color: white;
         }
-        
-           
-        </style>
-    </head>
-    <body>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+</style>
+</head>
+<body>
+<meta name="viewport" content="width=device-width, initial-scale=1">
         <div class="topnav">
             <a class="active" href="/cars">Home</a> 
-        </div>    
-        
-         <h3> <font color="RED">&nbsp;&nbsp;&nbsp;CONTACT US</font></h3>
-             <div class="col-sm-5 col-md-5 col-xs-5" style="border: 5px solid #eee; margin: 20px">
-       <div>
-           <div class="col-sm-4 col-md-4 col-xs-8" style="padding: 5px">
-               <img alt="" src="{% static 'cars/images/aipic.jpg' %}" style="height: 150px;
-                   width: 150px" />
-           </div>
-           <div class="col-sm-8 col-md-8 col-xs-16">
-               <h4>
-                  Hrishikesh Gupta</h4>
-                <ui>
-            <li>Developed by: Hrishikesh Gupta</li>
-            <li>Email id: <a href="">hrishi123gupta@gmal.com</a></li>
-            <li>Phone Number: 9101290297</li>
-            <li>LinkedIn : <a  target="_blank" href="https://www.linkedin.com/in/hrishikesh-gupta-22b532151/" class="badge badge-primary">LinkedIn Profile</a></li>
-            <li>Resume: <a  target="_blank" href="https://docs.google.com/document/d/169qcs7yKBkddDkOOO4ex6FpILIESrY6BFNwbgdAxWdE/edit?usp=sharing" class="badge badge-primary">Resume Google Docs</a></li>
-        </ui>
-           </div>
-       </div>
+        </div>
+
+<h2 style="text-align:center">Contact Information</h2>
+
+<div class="card">
+  <img src="{% static 'cars/images/hrishi.jpg' %}" alt="John" style="width:100%">
+  <h2>Hrishikesh Gupta</h2>
+  <p class="title">Python Developer</p>
+  <p>Python  developer with in depth knowledge in developing Restful APIs, Data Extraction,  Analysis & Visualisation with basic level understanding of data science and statistics.
+</p>
+  <p><a  target="_blank" href="https://docs.google.com/document/d/169qcs7yKBkddDkOOO4ex6FpILIESrY6BFNwbgdAxWdE/edit?usp=sharing" class="badge badge-primary">Resume</a></p>
+  <hr>
+  <div style="margin: 5px 5px;">
+  <a target="_blank" href="https://www.linkedin.com/in/hrishikesh-gupta-22b532151/"><i class="fa fa-linkedin"></i></a>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a target="_blank" href="https://www.facebook.com/hrishikesh.gupta.50"><i class="fa fa-facebook"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a><i class="fa fa-phone" onclick="myFunction()"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <a><i class="fa fa-envelope" onclick="myFunction01()"></i></a>
+  </div>
+  <script>
+          function myFunction() {
+          // alert("8486899959 / 9101290297");
+          window.prompt("Contact Details","8486899959 / 9101290297");
+          }
+
+          function myFunction01() {
+          // alert("8486899959 / 9101290297");
+          window.prompt("Email","hrishi123gupta@gmail.com");
+          succcess
+          }
+          
+   </script>
    </div>
-        <!--         <center><h3>CONTACT US</h3> <font color="brown"></font></center> -->
-        <!-- <ui>
-            <li>Developed by: Hrishikesh Gupta</li>
-            <li>Email id: <a href="">hrishi123gupta@gmal.com</a></li>
-            <li>Phone Number: 9101290297</li>
-            <li>LinkedIn : <a href="https://www.linkedin.com/in/hrishikesh-gupta-22b532151/">Hrishikesh</a></li>
-        <a href="/cars/about" class="badge badge-primary">READ ME</a>
-        </ui> -->
-    </body>
+
+</body>
 </html>
